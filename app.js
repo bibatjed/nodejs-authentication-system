@@ -9,6 +9,8 @@ app.use(express.json());
 
 app.use(route);
 
+app.use(require('./app/middlewares/errorHandlerMiddleWare'));
+
 app.listen(process.env.PORT || 3000, () =>
     console.log('listening to port 3000')
 );
