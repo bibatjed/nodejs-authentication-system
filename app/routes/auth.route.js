@@ -1,6 +1,8 @@
 const router = require('express').Router();
 
-router.route('/token').post();
+router
+    .route('/token')
+    .post(require('../controllers/auth.controller').loginUser);
 
 router.route('/logout').post();
 

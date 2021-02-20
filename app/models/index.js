@@ -22,11 +22,7 @@ fs.readdirSync(__dirname)
         );
     })
     .forEach((fileName) => {
-        const model = require(path.join(__dirname, fileName));
-        const modelSchema = new Schema(model.schema);
-
-        modelSchema.methods = model.methods || {};
-        modelSchema.statics = model.statics || {};
+        const modelSchema = require(path.join(__dirname, fileName));
 
         // user.js will be user now
         fileName = fileName.split('.')[0];

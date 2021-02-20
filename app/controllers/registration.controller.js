@@ -15,7 +15,7 @@ module.exports.registrationController = async (req, res, next) => {
 
         await models.User.create({
             username: username,
-            password: password,
+            password: models.User.createHashPassword(password),
         });
 
         return res.json({

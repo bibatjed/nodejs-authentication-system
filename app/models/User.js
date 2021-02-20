@@ -1,30 +1,29 @@
 'use strict';
 
 const bcrypt = require('bcrypt');
+const { Schema } = require('mongoose');
 
-module.exports = {
-    schema: {
-        username: {
-            type: String,
-            required: true,
-            unique: true,
-        },
-        password: {
-            type: String,
-            required: false,
-        },
+const userSchema = new Schema({
+    username: {
+        type: String,
+        required: true,
+        unique: true,
     },
-
-    // instance methods goes here
-    // methods: {
-
-    // },
-
-    // // statics methods goes here
-    statics: {
-        createHashPassword: (passCode) => {
-            const salt = bcrypt.genSaltSync();
-            return bcrypt.hashSync(passCode, salt);
-        },
+    password: {
+        type: String,
+        required: true,
     },
+});
+
+userSchema.statics.createHashPassword = (passCode) => {
+    const salt = bcrypt.genSaltSync();
+    return bcrypt.hashSync(passCode, salt);
 };
+
+userSchema.methods.validatePassword = function (passCode) {
+    return bcrypt.compareSync(passCode, this.password);
+};
+
+console.log(userSchema.methods);
+
+module.exports = userSchema;
