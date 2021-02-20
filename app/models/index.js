@@ -25,8 +25,8 @@ fs.readdirSync(__dirname)
         const model = require(path.join(__dirname, fileName));
         const modelSchema = new Schema(model.schema);
 
-        modelSchema.methods = model.methods;
-        modelSchema.statics = model.statics;
+        modelSchema.methods = model.methods || {};
+        modelSchema.statics = model.statics || {};
 
         // user.js will be user now
         fileName = fileName.split('.')[0];
