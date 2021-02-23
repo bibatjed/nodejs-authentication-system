@@ -1,9 +1,10 @@
 const router = require('express').Router();
 
-router
-    .route('/token')
-    .post(require('../controllers/auth.controller').loginUser);
+const authController = require('../controllers/auth.controller');
+const authMiddleware = require('../middlewares/authMiddleWare');
 
-router.route('/logout').post();
+router.route('/token').post(authController.loginUser);
+
+router.route('/logout').post(authMiddleware, authController.logoutUser);
 
 module.exports = router;

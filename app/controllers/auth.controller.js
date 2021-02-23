@@ -22,10 +22,9 @@ module.exports.loginUser = async (req, res, next) => {
             };
         }
 
-        //TODO: ADD PRIVATE KEY
         const token = jwt.sign(
             { id: userResult.id, username: userResult.username },
-            'shhhhh'
+            process.env.JWT_SECRET
         );
 
         return res.json({
@@ -33,6 +32,16 @@ module.exports.loginUser = async (req, res, next) => {
             result: {
                 token,
             },
+        });
+    } catch (e) {
+        return next(e);
+    }
+};
+
+module.exports.logoutUser = async (req, res, next) => {
+    try {
+        return res.json({
+            message: 'Success',
         });
     } catch (e) {
         return next(e);
